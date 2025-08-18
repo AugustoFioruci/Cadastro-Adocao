@@ -13,7 +13,7 @@ import lombok.*;
 public class Pet {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(nullable = false)
@@ -21,6 +21,10 @@ public class Pet {
 
     @Column(nullable = false)
     private String address;
+
+    private int age;
+    private int weight;
+    private String race;
 
     @Enumerated(EnumType.STRING)
     private TypePet typePet;
