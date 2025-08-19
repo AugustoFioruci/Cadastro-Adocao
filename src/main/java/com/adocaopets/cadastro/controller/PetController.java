@@ -8,7 +8,7 @@ public class PetController {
 
     @GetMapping("/Ola")
     public String hello(){
-        return "Olá Mundo";
+        return "Olá  Mundo";
     }
 
 }

@@ -1,6 +1,6 @@
 package com.adocaopets.cadastro.model;
 
-public enum TypePet {
+public enum PetType {
     CACHORRO,
     GATO
 }

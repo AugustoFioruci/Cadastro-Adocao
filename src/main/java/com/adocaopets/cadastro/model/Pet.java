@@ -27,7 +27,7 @@ public class Pet {
     private String race;
 
     @Enumerated(EnumType.STRING)
-    private TypePet typePet;
+    private PetType typePet;
 
     @Enumerated(EnumType.STRING)
     private SexPet sexPet;
