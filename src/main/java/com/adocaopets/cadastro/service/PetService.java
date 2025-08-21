@@ -8,7 +8,7 @@ public interface PetService {
 
     Pet createPet(Pet pet);
     Pet updatePet(Long id, Pet petUpdated);
-    Pet deletePet(Long id);
+    void deletePet(Long id);
     List<Pet> listAll();
     List<Pet> listByName(String name);
     List<Pet> listBySex(SexPet sex);
