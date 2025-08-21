@@ -20,7 +20,7 @@ public class PetController {
     @PostMapping
     public ResponseEntity<Pet> createPet(@RequestBody Pet pet){
         Pet created = petService.createPet(pet);
-        return ResponseEntity.ok(created);
+        return ResponseEntity.status(201).body(created);
     }
 
     @PutMapping("/{id}")
@@ -51,10 +51,7 @@ public class PetController {
     }
 
     @GetMapping("/sex")
-    public ResponseEntity<List<Pet>> listByType(@RequestParam SexPet sex){
+    public ResponseEntity<List<Pet>> listBySex(@RequestParam SexPet sex){
         return ResponseEntity.ok(petService.listBySex(sex));
     }
-
-
-
 }

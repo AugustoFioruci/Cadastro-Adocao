@@ -4,7 +4,6 @@ import com.adocaopets.cadastro.model.*;
 import com.adocaopets.cadastro.repository.PetRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PetServiceImpl implements PetService{
