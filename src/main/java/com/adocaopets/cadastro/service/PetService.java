@@ -11,6 +11,7 @@ public interface PetService {
     void deletePet(Long id);
     List<Pet> listAll();
     List<Pet> listByName(String name);
+    List<Pet> listByNameContainingIgnoreCase(String name);
     List<Pet> listBySex(SexPet sex);
     List<Pet> listByType(PetType type);
 }

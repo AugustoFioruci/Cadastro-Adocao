@@ -47,8 +47,11 @@ public class PetServiceImpl implements PetService{
 
     @Override
     public List<Pet> listByName(String name){
-        return petRepository.findByNameContainingIgnoreCase(name);
+        return petRepository.findByName(name);
     }
+
+    @Override
+    public List<Pet> listByNameContainingIgnoreCase(String name){ return petRepository.findByNameContainingIgnoreCase(name);}
 
     @Override
     public List<Pet> listBySex(SexPet sex){
