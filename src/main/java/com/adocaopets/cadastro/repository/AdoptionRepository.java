@@ -1,5 +1,7 @@
 package com.adocaopets.cadastro.repository;
-import com.adocaopets.cadastro.model.*;
+import com.adocaopets.cadastro.model.enity.Adoption;
+import com.adocaopets.cadastro.model.enity.Owner;
+import com.adocaopets.cadastro.model.enity.Pet;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

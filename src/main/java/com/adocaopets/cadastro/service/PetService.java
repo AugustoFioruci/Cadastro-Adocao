@@ -1,6 +1,9 @@
 package com.adocaopets.cadastro.service;
 
-import com.adocaopets.cadastro.model.*;
+import com.adocaopets.cadastro.model.enity.Pet;
+import com.adocaopets.cadastro.model.enums.PetType;
+import com.adocaopets.cadastro.model.enums.SexPet;
+
 import java.util.List;
 
 public interface PetService {

@@ -1,8 +1,9 @@
 package com.adocaopets.cadastro.controller;
 
+import com.adocaopets.cadastro.model.enity.Pet;
+import com.adocaopets.cadastro.model.enums.PetType;
+import com.adocaopets.cadastro.model.enums.SexPet;
 import com.adocaopets.cadastro.service.PetService;
-import com.adocaopets.cadastro.model.*;
-import com.adocaopets.cadastro.service.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;

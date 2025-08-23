@@ -1,5 +1,7 @@
-package com.adocaopets.cadastro.model;
+package com.adocaopets.cadastro.model.enity;
 
+import com.adocaopets.cadastro.model.enums.PetType;
+import com.adocaopets.cadastro.model.enums.SexPet;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

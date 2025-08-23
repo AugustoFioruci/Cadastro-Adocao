@@ -1,4 +1,4 @@
-package com.adocaopets.cadastro.model;
+package com.adocaopets.cadastro.model.enity;
 
 
 import jakarta.persistence.*;

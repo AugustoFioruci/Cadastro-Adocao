@@ -1,18 +1,19 @@
-package com.adocaopets.cadastro.service;
+package com.adocaopets.cadastro.service.impl;
 
-import com.adocaopets.cadastro.model.*;
+import com.adocaopets.cadastro.model.enity.Pet;
+import com.adocaopets.cadastro.model.enums.PetType;
+import com.adocaopets.cadastro.model.enums.SexPet;
 import com.adocaopets.cadastro.repository.PetRepository;
+import com.adocaopets.cadastro.service.PetService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class PetServiceImpl implements PetService{
+@RequiredArgsConstructor
+public class PetServiceImpl implements PetService {
 
     private final PetRepository petRepository;
-
-    public PetServiceImpl(PetRepository petRepository){
-        this.petRepository = petRepository;
-    }
 
     @Override
     public Pet createPet(Pet pet){
