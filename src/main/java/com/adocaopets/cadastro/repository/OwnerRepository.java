@@ -9,5 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface OwnerRepository extends JpaRepository<Owner, Long> {
 
     List<Owner> findByName(String name);
+    List<Owner> findByNameContainingIgnoringCase(String name);
     List<Owner> findByCpf(String cpf);
 }

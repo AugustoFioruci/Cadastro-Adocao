@@ -7,4 +7,7 @@ public interface OwnerService {
     Owner updateOwner(Long id);
     void deleteOwner(Long id);
     List<Owner> listAll();
+    List<Owner> listByName(String name);
+    List<Owner> listByNameContainingIgnoreCase(String name);
+    List<Owner> listByCpf(String cpf);
 }
