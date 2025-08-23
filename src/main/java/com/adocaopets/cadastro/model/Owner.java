@@ -23,6 +23,10 @@ public class Owner {
 
     @Column(nullable = false, unique = true, length = 11)
     @NotBlank
+    private String name;
+
+    @Column(nullable = false, unique = true, length = 11)
+    @NotBlank
     @CPF
     private String cpf;
 

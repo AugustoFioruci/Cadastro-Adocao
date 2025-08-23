@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "pets")
 @Data
@@ -26,7 +28,7 @@ public class Pet {
     @NotBlank
     private String address;
 
-    private int age;
+    private LocalDate age;
     private int weight;
     private String race;
 
