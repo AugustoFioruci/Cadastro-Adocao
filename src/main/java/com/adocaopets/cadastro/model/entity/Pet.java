@@ -1,4 +1,4 @@
-package com.adocaopets.cadastro.model.enity;
+package com.adocaopets.cadastro.model.entity;
 
 import com.adocaopets.cadastro.model.enums.PetType;
 import com.adocaopets.cadastro.model.enums.SexPet;

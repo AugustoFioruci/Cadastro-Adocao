@@ -1,14 +1,17 @@
 package com.adocaopets.cadastro.repository;
-import com.adocaopets.cadastro.model.enity.Adoption;
-import com.adocaopets.cadastro.model.enity.Owner;
-import com.adocaopets.cadastro.model.enity.Pet;
+import com.adocaopets.cadastro.model.entity.Adoption;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
 public interface AdoptionRepository extends JpaRepository<Adoption,Long> {
-    List<Owner> findByOwnerName(String name);
-    List<Pet> findByPetName(String name);
+
+    @Query("SELECT a FROM Adoption a WHERE a.pet.id = :petId AND a.owner.cpf = :ownerCpf" )
+    List<Adoption> findByPetIdAndOwnerCpf(@Param("petId") Long id, @Param("ownerCpf") String cpf);
+    List<Adoption> findByOwnerCpf(String cpf);
+    List<Adoption> findByPetId(Long petId);
 }

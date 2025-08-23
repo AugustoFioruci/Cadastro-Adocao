@@ -1,5 +1,5 @@
 package com.adocaopets.cadastro.service;
-import com.adocaopets.cadastro.model.enity.Owner;
+import com.adocaopets.cadastro.model.entity.Owner;
 
 import java.util.List;
 

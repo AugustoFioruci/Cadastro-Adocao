@@ -1,6 +1,6 @@
 package com.adocaopets.cadastro.controller;
 
-import com.adocaopets.cadastro.model.enity.Pet;
+import com.adocaopets.cadastro.model.entity.Pet;
 import com.adocaopets.cadastro.model.enums.PetType;
 import com.adocaopets.cadastro.model.enums.SexPet;
 import com.adocaopets.cadastro.service.PetService;

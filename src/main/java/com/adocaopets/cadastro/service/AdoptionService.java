@@ -1,17 +1,17 @@
 package com.adocaopets.cadastro.service;
 
 import com.adocaopets.cadastro.dto.AdoptionRequest;
-import com.adocaopets.cadastro.model.enity.Adoption;
-import com.adocaopets.cadastro.model.enity.Owner;
+import com.adocaopets.cadastro.model.entity.Adoption;
 
 import java.util.List;
 
 public interface AdoptionService {
 
-    Adoption createAdoption(AdoptionRequest adoptionRequest);
-    Adoption updateAdoption(Long id, Adoption adoptionUpdated);
-    void deleteAdoption(Long id);
+    Adoption createAdoption(AdoptionRequest request);
+    Adoption updateAdoption(AdoptionRequest request, Long id);
+    Adoption cancelAdoption(Long id);
+    List<Adoption> listAdoptionByPetIdAndOwnerCpf(Long id, String cpf);
     List<Adoption> listAll();
-    List<Owner> listByCpf(String cpf);
-    List<Adoption> findByPetId(Long id);
+    List<Adoption> listByOwnerCpf(String cpf);
+    List<Adoption> listByPetId(Long id);
 }

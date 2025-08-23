@@ -1,5 +1,5 @@
 package com.adocaopets.cadastro.service.impl;
-import com.adocaopets.cadastro.model.enity.Owner;
+import com.adocaopets.cadastro.model.entity.Owner;
 import com.adocaopets.cadastro.repository.OwnerRepository;
 import com.adocaopets.cadastro.service.OwnerService;
 import lombok.RequiredArgsConstructor;
