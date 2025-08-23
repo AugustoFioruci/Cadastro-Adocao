@@ -25,6 +25,7 @@ public class PetServiceImpl implements PetService {
 
             Pet pet = petRepository.findById(id).orElseThrow(() ->
                 new RuntimeException("Animal não encontrado Id:"+id));
+
             pet.setName(petUpdated.getName());
             pet.setAddress(petUpdated.getAddress());
             pet.setAge(petUpdated.getAge());
