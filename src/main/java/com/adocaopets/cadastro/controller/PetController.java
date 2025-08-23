@@ -44,6 +44,10 @@ public class PetController {
     public ResponseEntity<List<Pet>> listByName(@RequestParam String name){
         return ResponseEntity.ok(petService.listByName(name));
     }
+    @GetMapping("/search")
+    public ResponseEntity<List<Pet>> listByNameContainingIgnoreCase(@RequestParam String name){
+        return ResponseEntity.ok(petService.listByNameContainingIgnoreCase(name));
+    }
 
     @GetMapping("/type")
     public ResponseEntity<List<Pet>> listByType(@RequestParam PetType type){
