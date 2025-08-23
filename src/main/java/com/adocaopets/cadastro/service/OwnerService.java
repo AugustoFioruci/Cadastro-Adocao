@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface OwnerService {
     Owner createOwner(Owner owner);
-    Owner updateOwner(Long id);
+    Owner updateOwner(Long id, Owner ownerUpdate);
     void deleteOwner(Long id);
     List<Owner> listAll();
     List<Owner> listByName(String name);

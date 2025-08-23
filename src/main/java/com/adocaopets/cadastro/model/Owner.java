@@ -2,12 +2,14 @@ package com.adocaopets.cadastro.model;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.br.CPF;
 
 @Entity
-@Table(name = "Owner")
+@Table(name = "owner")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,8 +21,18 @@ public class Owner {
     private Long id;
 
     @Column(nullable = false, unique = true, length = 11)
+    @NotBlank
+    @CPF
     private String cpf;
 
+    @OneToOne
+    @JoinColumn(name = "address_id")
     private Address address;
+
     private int telephoneNumber;
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf.replaceAll("\\D", "");
+    }
+
 }
