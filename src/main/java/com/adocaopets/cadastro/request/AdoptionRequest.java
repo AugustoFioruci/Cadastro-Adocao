@@ -1,4 +1,4 @@
-package com.adocaopets.cadastro.dto;
+package com.adocaopets.cadastro.request;
 
 
 import com.adocaopets.cadastro.model.enums.AdoptionStatus;
