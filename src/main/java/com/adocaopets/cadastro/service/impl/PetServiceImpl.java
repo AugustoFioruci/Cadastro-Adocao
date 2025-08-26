@@ -1,9 +1,11 @@
 package com.adocaopets.cadastro.service.impl;
 
+import com.adocaopets.cadastro.dto.PetDTO;
 import com.adocaopets.cadastro.model.entity.Pet;
 import com.adocaopets.cadastro.model.enums.PetType;
 import com.adocaopets.cadastro.model.enums.PetSex;
 import com.adocaopets.cadastro.repository.PetRepository;
+import com.adocaopets.cadastro.request.PetRequest;
 import com.adocaopets.cadastro.service.PetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,8 +26,30 @@ public class PetServiceImpl implements PetService {
     }
 
     @Override
-    public Pet createPet(Pet pet){
-        return petRepository.save(pet);
+    public PetDTO createPet(PetRequest request){
+        Pet pet = Pet.builder()
+                .name(request.getName())
+                .address(request.getAddress())
+                .typePet(request.getTypePet())
+                .sexPet(request.getSexPet())
+                .birthDate(request.getBirthDate())
+                .weightInGrams(request.getWeightInGrams())
+                .race(request.getRace())
+                .build();
+
+        Pet savedPet = petRepository.save(pet);
+
+        return PetDTO.builder()
+                .id(savedPet.getId())
+                .name(savedPet.getName())
+                .address(savedPet.getAddress())
+                .birthDate(savedPet.getBirthDate())
+                .weightInGrams(savedPet.getWeightInGrams())
+                .race(savedPet.getRace())
+                .typePet(savedPet.getTypePet())
+                .sexPet(savedPet.getSexPet())
+                .build();
+
     }
 
     @Override

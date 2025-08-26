@@ -1,10 +1,13 @@
 package com.adocaopets.cadastro.controller;
 
+import com.adocaopets.cadastro.dto.PetDTO;
 import com.adocaopets.cadastro.model.entity.Pet;
 import com.adocaopets.cadastro.model.enums.PetType;
 import com.adocaopets.cadastro.model.enums.PetSex;
+import com.adocaopets.cadastro.request.PetRequest;
 import com.adocaopets.cadastro.service.PetService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -17,9 +20,9 @@ public class PetController {
     private final PetService petService;
 
     @PostMapping
-    public ResponseEntity<Pet> createPet(@RequestBody Pet pet){
-        Pet created = petService.createPet(pet);
-        return ResponseEntity.status(201).body(created);
+    public ResponseEntity<PetDTO> createPet(@RequestBody PetRequest request){
+        PetDTO petDTO = petService.createPet(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(petDTO);
     }
 
     @PutMapping("/{id}")

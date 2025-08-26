@@ -1,6 +1,7 @@
 package com.adocaopets.cadastro.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import com.adocaopets.cadastro.model.enums.*;
@@ -8,6 +9,7 @@ import com.adocaopets.cadastro.model.enums.*;
 import java.time.LocalDate;
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class PetDTO {

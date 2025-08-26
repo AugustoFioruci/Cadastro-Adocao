@@ -1,8 +1,10 @@
 package com.adocaopets.cadastro.service;
 
+import com.adocaopets.cadastro.dto.PetDTO;
 import com.adocaopets.cadastro.model.entity.Pet;
 import com.adocaopets.cadastro.model.enums.PetType;
 import com.adocaopets.cadastro.model.enums.PetSex;
+import com.adocaopets.cadastro.request.PetRequest;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -10,7 +12,7 @@ import java.util.List;
 public interface PetService {
 
     int convertAge(LocalDate birthDate);
-    Pet createPet(Pet pet);
+    PetDTO createPet(PetRequest request);
     Pet updatePet(Long id, Pet petUpdated);
     void deletePet(Long id);
     List<Pet> listAll();

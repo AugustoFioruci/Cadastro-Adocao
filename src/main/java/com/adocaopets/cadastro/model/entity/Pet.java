@@ -8,6 +8,7 @@ import lombok.*;
 import java.time.LocalDate;
 
 @Entity
+@Builder
 @Table(name = "pets")
 @Data
 @AllArgsConstructor
