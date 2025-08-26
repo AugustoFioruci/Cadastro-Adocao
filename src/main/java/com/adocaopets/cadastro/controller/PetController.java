@@ -4,19 +4,17 @@ import com.adocaopets.cadastro.model.entity.Pet;
 import com.adocaopets.cadastro.model.enums.PetType;
 import com.adocaopets.cadastro.model.enums.SexPet;
 import com.adocaopets.cadastro.service.PetService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/pets")
 public class PetController {
 
     private final PetService petService;
-
-    public PetController(PetService petService){
-        this.petService = petService;
-    }
 
     @PostMapping
     public ResponseEntity<Pet> createPet(@RequestBody Pet pet){

@@ -1,6 +1,6 @@
 package com.adocaopets.cadastro.service;
 
-import com.adocaopets.cadastro.dto.AdoptionRequest;
+import com.adocaopets.cadastro.request.AdoptionRequest;
 import com.adocaopets.cadastro.model.entity.Adoption;
 
 import java.util.List;

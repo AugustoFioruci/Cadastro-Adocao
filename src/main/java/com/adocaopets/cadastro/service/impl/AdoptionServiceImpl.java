@@ -1,6 +1,6 @@
 package com.adocaopets.cadastro.service.impl;
 
-import com.adocaopets.cadastro.dto.AdoptionRequest;
+import com.adocaopets.cadastro.request.AdoptionRequest;
 import com.adocaopets.cadastro.model.entity.Adoption;
 import com.adocaopets.cadastro.model.entity.Owner;
 import com.adocaopets.cadastro.model.entity.Pet;
