@@ -2,7 +2,7 @@ package com.adocaopets.cadastro.controller;
 
 import com.adocaopets.cadastro.model.entity.Pet;
 import com.adocaopets.cadastro.model.enums.PetType;
-import com.adocaopets.cadastro.model.enums.SexPet;
+import com.adocaopets.cadastro.model.enums.PetSex;
 import com.adocaopets.cadastro.service.PetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -54,7 +54,7 @@ public class PetController {
     }
 
     @GetMapping("/sex")
-    public ResponseEntity<List<Pet>> listBySex(@RequestParam SexPet sex){
+    public ResponseEntity<List<Pet>> listBySex(@RequestParam PetSex sex){
         return ResponseEntity.ok(petService.listBySex(sex));
     }
 }

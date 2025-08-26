@@ -2,7 +2,7 @@ package com.adocaopets.cadastro.service.impl;
 
 import com.adocaopets.cadastro.model.entity.Pet;
 import com.adocaopets.cadastro.model.enums.PetType;
-import com.adocaopets.cadastro.model.enums.SexPet;
+import com.adocaopets.cadastro.model.enums.PetSex;
 import com.adocaopets.cadastro.repository.PetRepository;
 import com.adocaopets.cadastro.service.PetService;
 import lombok.RequiredArgsConstructor;
@@ -56,7 +56,7 @@ public class PetServiceImpl implements PetService {
     public List<Pet> listByNameContainingIgnoreCase(String name){ return petRepository.findByNameContainingIgnoreCase(name);}
 
     @Override
-    public List<Pet> listBySex(SexPet sex){
+    public List<Pet> listBySex(PetSex sex){
         return petRepository.findBySexPet(sex);
     }
 

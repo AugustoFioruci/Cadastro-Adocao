@@ -1,10 +1,8 @@
 package com.adocaopets.cadastro.model.entity;
 
 import com.adocaopets.cadastro.model.enums.PetType;
-import com.adocaopets.cadastro.model.enums.SexPet;
+import com.adocaopets.cadastro.model.enums.PetSex;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -23,25 +21,21 @@ public class Pet {
     private Long id;
 
     @Column(nullable = false)
-    @NotNull
     private String name;
 
     @Column(nullable = false)
-    @NotBlank
     private String address;
 
     private LocalDate age;
-    private int weight;
+    private int weightInGrams;
     private String race;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    @NotNull
     private PetType typePet;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    @NotNull
-    private SexPet sexPet;
+    private PetSex sexPet;
 
 }

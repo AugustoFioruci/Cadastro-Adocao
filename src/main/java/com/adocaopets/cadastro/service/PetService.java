@@ -2,7 +2,7 @@ package com.adocaopets.cadastro.service;
 
 import com.adocaopets.cadastro.model.entity.Pet;
 import com.adocaopets.cadastro.model.enums.PetType;
-import com.adocaopets.cadastro.model.enums.SexPet;
+import com.adocaopets.cadastro.model.enums.PetSex;
 
 import java.util.List;
 
@@ -14,6 +14,6 @@ public interface PetService {
     List<Pet> listAll();
     List<Pet> listByName(String name);
     List<Pet> listByNameContainingIgnoreCase(String name);
-    List<Pet> listBySex(SexPet sex);
+    List<Pet> listBySex(PetSex sex);
     List<Pet> listByType(PetType type);
 }
