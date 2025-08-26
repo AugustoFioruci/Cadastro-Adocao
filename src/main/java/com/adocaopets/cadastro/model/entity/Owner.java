@@ -22,17 +22,14 @@ public class Owner {
     private Long id;
 
     @Column(nullable = false, unique = true, length = 11)
-    @NotBlank
     private String name;
 
     @Column(nullable = false, unique = true, length = 11)
-    @NotBlank
     @CPF
     private String cpf;
 
     @OneToOne
     @JoinColumn(name = "address_id")
-    @NotNull
     private Address address;
 
     private int telephoneNumber;
