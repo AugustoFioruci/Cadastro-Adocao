@@ -4,10 +4,12 @@ import com.adocaopets.cadastro.model.entity.Pet;
 import com.adocaopets.cadastro.model.enums.PetType;
 import com.adocaopets.cadastro.model.enums.PetSex;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface PetService {
 
+    int convertAge(LocalDate birthDate);
     Pet createPet(Pet pet);
     Pet updatePet(Long id, Pet petUpdated);
     void deletePet(Long id);

@@ -7,6 +7,9 @@ import com.adocaopets.cadastro.repository.PetRepository;
 import com.adocaopets.cadastro.service.PetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 
 @Service
@@ -14,6 +17,11 @@ import java.util.List;
 public class PetServiceImpl implements PetService {
 
     private final PetRepository petRepository;
+
+    @Override
+    public int convertAge(LocalDate birthDate){
+        return Period.between(birthDate, LocalDate.now()).getYears();
+    }
 
     @Override
     public Pet createPet(Pet pet){
@@ -28,8 +36,8 @@ public class PetServiceImpl implements PetService {
 
             pet.setName(petUpdated.getName());
             pet.setAddress(petUpdated.getAddress());
-            pet.setAge(petUpdated.getAge());
-            pet.setWeight(petUpdated.getWeight());
+            pet.setBirthDate(petUpdated.getBirthDate());
+            pet.setWeightInGrams(petUpdated.getWeightInGrams());
             pet.setRace(petUpdated.getRace());
             pet.setTypePet(petUpdated.getTypePet());
             pet.setSexPet(petUpdated.getSexPet());

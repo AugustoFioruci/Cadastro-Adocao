@@ -22,7 +22,7 @@ public class PetRequest {
     @NotBlank(message = "Sexo do animal é obrigatório")
     private PetSex sexPet;
 
-    private LocalDate age;
+    private LocalDate birthDate;
     private int weightInGrams;
     private String race;
 
