@@ -13,11 +13,11 @@ public interface PetService {
 
     int convertAge(LocalDate birthDate);
     PetDTO createPet(PetRequest request);
-    Pet updatePet(Long id, Pet petUpdated);
+    PetDTO updatePet(Long id, PetRequest request);
     void deletePet(Long id);
-    List<Pet> listAll();
-    List<Pet> listByName(String name);
-    List<Pet> listByNameContainingIgnoreCase(String name);
-    List<Pet> listBySex(PetSex sex);
-    List<Pet> listByType(PetType type);
+    List<PetDTO> listAll();
+    List<PetDTO> listByName(String name);
+    List<PetDTO> listByNameContainingIgnoreCase(String name);
+    List<PetDTO> listBySex(PetSex sex);
+    List<PetDTO> listByType(PetType type);
 }

@@ -26,9 +26,9 @@ public class PetController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Pet> updatePet(@PathVariable Long id,@RequestBody Pet pet){
-        Pet updated = petService.updatePet(id, pet);
-        return ResponseEntity.ok(updated);
+    public ResponseEntity<PetDTO> updatePet(@PathVariable Long id,@RequestBody PetRequest request){
+        PetDTO petDTO = petService.updatePet(id, request);
+        return ResponseEntity.ok(petDTO);
     }
 
     @DeleteMapping("/{id}")
@@ -38,26 +38,26 @@ public class PetController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Pet>> listAll(){
+    public ResponseEntity<List<PetDTO>> listAll(){
         return ResponseEntity.ok(petService.listAll());
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<Pet>> listByName(@RequestParam String name){
+    public ResponseEntity<List<PetDTO>> listByName(@RequestParam String name){
         return ResponseEntity.ok(petService.listByName(name));
     }
     @GetMapping("/search")
-    public ResponseEntity<List<Pet>> listByNameContainingIgnoreCase(@RequestParam String name){
+    public ResponseEntity<List<PetDTO>> listByNameContainingIgnoreCase(@RequestParam String name){
         return ResponseEntity.ok(petService.listByNameContainingIgnoreCase(name));
     }
 
     @GetMapping("/type")
-    public ResponseEntity<List<Pet>> listByType(@RequestParam PetType type){
+    public ResponseEntity<List<PetDTO>> listByType(@RequestParam PetType type){
         return ResponseEntity.ok(petService.listByType(type));
     }
 
     @GetMapping("/sex")
-    public ResponseEntity<List<Pet>> listBySex(@RequestParam PetSex sex){
+    public ResponseEntity<List<PetDTO>> listBySex(@RequestParam PetSex sex){
         return ResponseEntity.ok(petService.listBySex(sex));
     }
 }

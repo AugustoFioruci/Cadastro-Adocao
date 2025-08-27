@@ -1,5 +1,6 @@
 package com.adocaopets.cadastro.dto;
 
+import com.adocaopets.cadastro.model.entity.Pet;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,4 +23,17 @@ public class PetDTO {
     private String race;
     private PetType typePet;
     private PetSex sexPet;
+
+    public static PetDTO fromEntity(Pet pet){
+        return PetDTO.builder()
+                .id(pet.getId())
+                .name(pet.getName())
+                .address(pet.getAddress())
+                .birthDate(pet.getBirthDate())
+                .weightInGrams(pet.getWeightInGrams())
+                .race(pet.getRace())
+                .typePet(pet.getTypePet())
+                .sexPet(pet.getSexPet())
+                .build();
+    }
 }

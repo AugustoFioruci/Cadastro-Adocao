@@ -37,35 +37,27 @@ public class PetServiceImpl implements PetService {
                 .race(request.getRace())
                 .build();
 
-        Pet savedPet = petRepository.save(pet);
+        Pet createPet = petRepository.save(pet);
 
-        return PetDTO.builder()
-                .id(savedPet.getId())
-                .name(savedPet.getName())
-                .address(savedPet.getAddress())
-                .birthDate(savedPet.getBirthDate())
-                .weightInGrams(savedPet.getWeightInGrams())
-                .race(savedPet.getRace())
-                .typePet(savedPet.getTypePet())
-                .sexPet(savedPet.getSexPet())
-                .build();
+        return PetDTO.fromEntity(createPet);
 
     }
 
     @Override
-    public Pet updatePet(Long id, Pet petUpdated){
+    public PetDTO updatePet(Long id, PetRequest request){
+        Pet pet = petRepository.findById(id).orElseThrow(() -> new RuntimeException("Animal não encontrado"));
 
-            Pet pet = petRepository.findById(id).orElseThrow(() ->
-                new RuntimeException("Animal não encontrado Id:"+id));
+        pet.setName(request.getName());
+        pet.setTypePet(request.getTypePet());
+        pet.setSexPet(request.getSexPet());
+        pet.setBirthDate(request.getBirthDate());
+        pet.setWeightInGrams(request.getWeightInGrams());
+        pet.setRace(request.getRace());
+        pet.setAddress(request.getAddress());
 
-            pet.setName(petUpdated.getName());
-            pet.setAddress(petUpdated.getAddress());
-            pet.setBirthDate(petUpdated.getBirthDate());
-            pet.setWeightInGrams(petUpdated.getWeightInGrams());
-            pet.setRace(petUpdated.getRace());
-            pet.setTypePet(petUpdated.getTypePet());
-            pet.setSexPet(petUpdated.getSexPet());
-            return petRepository.save(pet);
+        Pet updatedPet = petRepository.save(pet);
+
+        return PetDTO.fromEntity(updatedPet);
 
     }
 
@@ -75,25 +67,29 @@ public class PetServiceImpl implements PetService {
     }
 
     @Override
-    public List<Pet> listAll(){
-        return petRepository.findAll();
+    public List<PetDTO> listAll(){
+
+        return petRepository.findAll()
+                .stream()
+                .map(PetDTO::fromEntity)
+                .toList();
     }
 
     @Override
-    public List<Pet> listByName(String name){
+    public List<PetDTO> listByName(String name){
         return petRepository.findByName(name);
     }
 
     @Override
-    public List<Pet> listByNameContainingIgnoreCase(String name){ return petRepository.findByNameContainingIgnoreCase(name);}
+    public List<PetDTO> listByNameContainingIgnoreCase(String name){ return petRepository.findByNameContainingIgnoreCase(name);}
 
     @Override
-    public List<Pet> listBySex(PetSex sex){
+    public List<PetDTO> listBySex(PetSex sex){
         return petRepository.findBySexPet(sex);
     }
 
     @Override
-    public List<Pet> listByType(PetType type){
+    public List<PetDTO> listByType(PetType type){
         return petRepository.findByTypePet(type);
     }
 
