@@ -77,20 +77,47 @@ public class PetServiceImpl implements PetService {
 
     @Override
     public List<PetDTO> listByName(String name){
-        return petRepository.findByName(name);
+
+        Pet pet = petRepository.findByName(name).orElseThrow(() -> new RuntimeException("Animal não encontrado"));
+
+        return petRepository.findByName(name)
+                .stream()
+                .map(PetDTO::fromEntity)
+                .toList();
     }
 
     @Override
-    public List<PetDTO> listByNameContainingIgnoreCase(String name){ return petRepository.findByNameContainingIgnoreCase(name);}
+    public List<PetDTO> listByNameContainingIgnoreCase(String name){ 
+
+        Pet pet = petRepository.findByNameContainingIgnoreCase(name)
+                .orElseThrow(() -> new RuntimeException("Animal não encontrado"));
+
+        return petRepository.findByNameContainingIgnoreCase(name)
+                .stream()
+                .map(PetDTO::fromEntity)
+                .toList();
+        }
 
     @Override
     public List<PetDTO> listBySex(PetSex sex){
-        return petRepository.findBySexPet(sex);
+
+        Pet pet = petRepository.findBySexPet(sex).orElseThrow(() -> new RuntimeException("Animal não encontrado"));
+
+        return petRepository.findBySexPet(sex)
+                .stream()
+                .map(PetDTO::fromEntity)
+                .toList();
     }
 
     @Override
     public List<PetDTO> listByType(PetType type){
-        return petRepository.findByTypePet(type);
+
+        Pet pet = petRepository.findByTypePet(type).orElseThrow(() -> new RuntimeException("Animal não encontrado"));
+
+        return petRepository.findByTypePet(type)
+                .stream()
+                .map(PetDTO::fromEntity)
+                .toList();
     }
 
 
