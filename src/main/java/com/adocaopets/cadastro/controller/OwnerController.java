@@ -13,10 +13,10 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(name = "owner")
+@RequestMapping(name = "owners")
 public class OwnerController {
 
-    private OwnerService ownerService;
+    private final OwnerService ownerService;
 
 
     @PostMapping
@@ -43,17 +43,17 @@ public class OwnerController {
     }
 
     @GetMapping("/name")
-    public ResponseEntity<List<OwnerDTO>> listByName(String name){
+    public ResponseEntity<List<OwnerDTO>> listByName(@RequestParam String name){
         return ResponseEntity.ok(ownerService.listByName(name));
     }
 
     @GetMapping("/name/contains")
-    public ResponseEntity<List<OwnerDTO>> listByNameContainingIgnoreCase(String name){
+    public ResponseEntity<List<OwnerDTO>> listByNameContainingIgnoreCase(@RequestParam String name){
         return ResponseEntity.ok(ownerService.listByNameContainingIgnoreCase(name));
     }
 
     @GetMapping("/cpf")
-    public ResponseEntity<List<OwnerDTO>> listByCpf(String cpf){
+    public ResponseEntity<List<OwnerDTO>> listByCpf(@RequestParam String cpf){
         return ResponseEntity.ok(ownerService.listByCpf(cpf));
     }
 }
