@@ -25,21 +25,17 @@ public class Adoption {
 
     @ManyToOne
     @JoinColumn(name = "pet_id")
-    @NotNull
     private Pet pet;
 
     @ManyToOne
     @JoinColumn(name = "owner_id")
-    @NotNull
     private Owner owner;
 
     @Column(nullable = false)
-    @NotNull
     private LocalDate adoptionTime;
     private LocalDate returnDate;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    @NotNull
     private AdoptionStatus adoptionStatus;
 }
