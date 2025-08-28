@@ -1,5 +1,6 @@
 package com.adocaopets.cadastro.service.impl;
 
+import com.adocaopets.cadastro.dto.AdoptionDTO;
 import com.adocaopets.cadastro.request.AdoptionRequest;
 import com.adocaopets.cadastro.model.entity.Adoption;
 import com.adocaopets.cadastro.model.entity.Owner;
@@ -32,23 +33,25 @@ public class AdoptionServiceImpl implements AdoptionService {
     }
 
     @Override
-    public Adoption createAdoption(AdoptionRequest request) {
+    public AdoptionDTO createAdoption(AdoptionRequest request) {
 
         Owner owner = getOwnerById(request.getOwnerId());
         Pet pet = getPetById(request.getPetId());
 
-        Adoption adoption = Adoption.builder().
-                owner(owner).
-                pet(pet).
-                adoptionTime(LocalDate.now()).
-                adoptionStatus(AdoptionStatus.ADOPTED).
-                build();
+        Adoption adoption = Adoption.builder()
+                .owner(owner)
+                .pet(pet)
+                .adoptionTime(LocalDate.now())
+                .adoptionStatus(AdoptionStatus.ADOPTED)
+                .build();
 
-        return adoptionRepository.save(adoption);
+        Adoption saveAdoption = adoptionRepository.save(adoption);
+
+        return AdoptionDTO.fromEntity(saveAdoption);
     }
 
     @Override
-    public Adoption updateAdoption(AdoptionRequest request, Long adoptionId){
+    public AdoptionDTO updateAdoption(AdoptionRequest request, Long adoptionId){
         Adoption adoption = adoptionRepository.findById(adoptionId).orElseThrow(() ->
                 new RuntimeException("Adoção não encontrada"));
         Owner owner = getOwnerById(request.getOwnerId());
@@ -60,35 +63,52 @@ public class AdoptionServiceImpl implements AdoptionService {
         if(request.getReturnDate() != null){
             adoption.setReturnDate(request.getReturnDate());
         }
-        return adoptionRepository.save(adoption);
+        Adoption updateAdoption = adoptionRepository.save(adoption);
+
+        return AdoptionDTO.fromEntity(updateAdoption);
     }
 
     @Override
-    public Adoption cancelAdoption(Long adoptionId){
+    public AdoptionDTO cancelAdoption(Long adoptionId){
         Adoption adoption = adoptionRepository.findById(adoptionId).orElseThrow(() ->
                 new RuntimeException("Adoção não encontrada"));
         adoption.setReturnDate(LocalDate.now());
         adoption.setAdoptionStatus(AdoptionStatus.RETURNED);
-        return adoptionRepository.save(adoption);
+
+        Adoption cancelAdoption = adoptionRepository.save(adoption);
+
+        return AdoptionDTO.fromEntity(cancelAdoption);
     }
 
     @Override
-    public List<Adoption> listAdoptionByPetIdAndOwnerCpf(Long petId, String cpf){
-        return adoptionRepository.findByPetIdAndOwnerCpf(petId, cpf);
+    public List<AdoptionDTO> listAdoptionByPetIdAndOwnerCpf(Long petId, String cpf){
+        return adoptionRepository.findByPetIdAndOwnerCpf(petId, cpf)
+                .stream()
+                .map(AdoptionDTO::fromEntity)
+                .toList();
     }
 
     @Override
-    public List<Adoption> listAll(){
-        return adoptionRepository.findAll();
+    public List<AdoptionDTO> listAll(){
+        return adoptionRepository.findAll()
+                .stream()
+                .map(AdoptionDTO::fromEntity)
+                .toList();
     }
 
     @Override
-    public List<Adoption> listByOwnerCpf(String cpf){
-        return adoptionRepository.findByOwnerCpf(cpf);
+    public List<AdoptionDTO> listByOwnerCpf(String cpf){
+        return adoptionRepository.findByOwnerCpf(cpf)
+                .stream()
+                .map(AdoptionDTO::fromEntity)
+                .toList();
     }
 
     @Override
-    public List<Adoption> listByPetId(Long petId){
-        return adoptionRepository.findByPetId(petId);
+    public List<AdoptionDTO> listByPetId(Long petId){
+        return adoptionRepository.findByPetId(petId)
+                .stream()
+                .map(AdoptionDTO::fromEntity)
+                .toList();
     }
 }

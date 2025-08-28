@@ -1,5 +1,7 @@
 package com.adocaopets.cadastro.controller;
 
+import com.adocaopets.cadastro.dto.OwnerDTO;
+import com.adocaopets.cadastro.request.OwnerRequest;
 import com.adocaopets.cadastro.service.OwnerService;
 import com.adocaopets.cadastro.model.entity.*;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +22,8 @@ public class OwnerController {
     }
 
     @PutMapping({"/{id}"})
-    public ResponseEntity<Owner> updateOwner(@PathVariable Long id, @RequestBody Owner owner){
-        Owner update = ownerService.updateOwner(id, owner);
+    public ResponseEntity<OwnerDTO> updateOwner(@PathVariable Long id, @RequestBody OwnerRequest request){
+        OwnerDTO update = ownerService.updateOwner(id, request);
         return ResponseEntity.ok(update);
     }
 
