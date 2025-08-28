@@ -13,8 +13,8 @@ import java.util.List;
 public interface PetRepository extends JpaRepository<Pet,Long> {
 
 
-    List<PetDTO> findByName(String name);
-    List<PetDTO> findByNameContainingIgnoreCase(String name);
-    List<PetDTO> findByTypePet(PetType typePet);
-    List<PetDTO> findBySexPet(PetSex petSex);
+    List<Pet> findByName(String name);
+    List<Pet> findByNameContainingIgnoreCase(String name);
+    List<Pet> findByTypePet(PetType typePet);
+    List<Pet> findBySexPet(PetSex petSex);
 }
