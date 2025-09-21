@@ -18,5 +18,5 @@ public class OwnerRequest {
     private String cpf;
     private Address address;
     @NotNull
-    private int telephoneNumber;
+    private String telephoneNumber;
 }

@@ -17,7 +17,7 @@ public class OwnerDTO {
     private String name;
     private String cpf;
     private Address address;
-    private int telephoneNumber;
+    private String telephoneNumber;
 
     public static OwnerDTO fromEntity(Owner owner){
         return OwnerDTO.builder()

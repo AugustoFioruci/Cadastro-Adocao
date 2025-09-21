@@ -18,7 +18,7 @@ public class AdoptionDTO {
     private Long ownerId;
     private String petName;
     private String ownerName;
-    private LocalDate adoptionTime;
+    private LocalDate adoptionDate;
     private LocalDate returnDate;
     private AdoptionStatus status;
 
@@ -29,7 +29,7 @@ public class AdoptionDTO {
                 .ownerId(adoption.getOwner().getId())
                 .petName(adoption.getPet().getName())
                 .ownerName(adoption.getOwner().getName())
-                .adoptionTime(adoption.getReturnDate())
+                .adoptionDate(adoption.getReturnDate())
                 .returnDate(adoption.getReturnDate())
                 .status(adoption.getAdoptionStatus())
                 .build();

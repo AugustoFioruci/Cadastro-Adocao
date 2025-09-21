@@ -32,7 +32,7 @@ public class Adoption {
     private Owner owner;
 
     @Column(nullable = false)
-    private LocalDate adoptionTime;
+    private LocalDate adoptionDate;
     private LocalDate returnDate;
 
     @Enumerated(EnumType.STRING)

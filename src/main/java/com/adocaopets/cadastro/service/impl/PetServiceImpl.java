@@ -29,7 +29,7 @@ public class PetServiceImpl implements PetService {
     public PetDTO createPet(PetRequest request){
         Pet pet = Pet.builder()
                 .name(request.getName())
-                .address(request.getAddress())
+                .addressPetFound(request.getAddressPetFound())
                 .typePet(request.getTypePet())
                 .sexPet(request.getSexPet())
                 .birthDate(request.getBirthDate())
@@ -53,7 +53,7 @@ public class PetServiceImpl implements PetService {
         pet.setBirthDate(request.getBirthDate());
         pet.setWeightInGrams(request.getWeightInGrams());
         pet.setRace(request.getRace());
-        pet.setAddress(request.getAddress());
+        pet.setAddressPetFound(request.getAddressPetFound());
 
         Pet updatedPet = petRepository.save(pet);
 

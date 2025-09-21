@@ -30,11 +30,11 @@ public class Owner {
     @CPF
     private String cpf;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
     private Address address;
 
-    private int telephoneNumber;
+    private String telephoneNumber;
 
     public void setCpf(String cpf) {
         this.cpf = cpf.replaceAll("\\D", "");

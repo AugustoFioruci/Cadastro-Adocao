@@ -25,7 +25,7 @@ public class Pet {
     private String name;
 
     @Column(nullable = false)
-    private String address;
+    private String addressPetFound;
 
     private LocalDate birthDate;
     private int weightInGrams;

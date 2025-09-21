@@ -16,10 +16,10 @@ public class PetRequest {
     @NotBlank(message = "Nome é obrigatório")
     private String name;
     @NotBlank(message = "Endereço é obrigatório")
-    private String address;
-    @NotBlank(message = "Tipo do pet é obrigatório")
+    private String addressPetFound;
+    @NotBlank(message = "Tipo é obrigatório")
     private PetType typePet;
-    @NotBlank(message = "Sexo do animal é obrigatório")
+    @NotBlank(message = "Sexo é obrigatório")
     private PetSex sexPet;
 
     private LocalDate birthDate;
