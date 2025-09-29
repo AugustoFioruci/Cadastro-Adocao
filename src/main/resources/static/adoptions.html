@@ -89,7 +89,7 @@
             .then(pets => {
                 const selectPet = document.getElementById("adoptionPet");
                 selectPet.innerHTML = "<option value=''>Selecione</option>";
-                pets.forEach(p=> selectPet.innerHTML += `<option value="${p.id}">${p.name}</option>`);
+                pets.forEach(p=> selectPet.innerHTML += `<option value="${p.id}">${p.id}</option>`);
             });
 
         fetch(ownersUrl)
@@ -97,7 +97,7 @@
             .then(owners => {
                 const selectOwner = document.getElementById("adoptionOwner");
                 selectOwner.innerHTML = "<option value=''>Selecione</option>";
-                owners.forEach(o=> selectOwner.innerHTML += `<option value="${o.id}">${o.name}</option>`);
+                owners.forEach(o=> selectOwner.innerHTML += `<option value="${o.id}">${o.id}</option>`);
             });
     }
 
