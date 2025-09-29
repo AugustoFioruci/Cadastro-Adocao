@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adoptions - Sistema de Adoção</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <div class="logo">
+        <h1>Pet Adoption System</h1>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="pets.html">Pets</a></li>
+            <li><a href="owners.html">Owners</a></li>
+            <li><a href="adoptions.html" class="active">Adoptions</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section id="cadastrar">
+    <h2>Cadastrar / Editar Adoção</h2>
+    <form id="formAdoption">
+        <input type="hidden" id="adoptionId">
+
+        <div>
+            <label for="adoptionPet">Pet:</label>
+            <select id="adoptionPet" required></select>
+        </div>
+
+        <div>
+            <label for="adoptionOwner">Owner:</label>
+            <select id="adoptionOwner" required></select>
+        </div>
+
+        <div>
+            <label for="adoptionDate">Data de Adoção:</label>
+            <input type="date" id="adoptionDate" required>
+        </div>
+
+        <div>
+            <label for="returnDate">Data de Retorno:</label>
+            <input type="date" id="returnDate">
+        </div>
+
+        <button type="submit" class="btn">Salvar</button>
+        <button type="button" class="btn" onclick="resetForm()">Cancelar</button>
+    </form>
+</section>
+
+<section id="listar">
+    <h2>Lista de Adoções</h2>
+    <div style="margin-bottom:20px;">
+        <label for="pesquisaAdoption"><strong>Pesquisar Adoção:</strong></label>
+        <input type="text" id="pesquisaAdoption" placeholder="Pesquisar por Pet ou Owner...">
+    </div>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Pet</th>
+            <th>Owner</th>
+            <th>Data Adoção</th>
+            <th>Data Retorno</th>
+            <th>Status</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody id="tabelaAdoptions"></tbody>
+    </table>
+</section>
+
+<footer>
+    <p>&copy; 2025 Pet Adoption System | Desenvolvido por Augusto Fioruci</p>
+</footer>
+
+<script>
+    const apiUrl = "/api/adoptions";
+    const petsUrl = "/api/pets";
+    const ownersUrl = "/api/owners";
+
+    // Preencher selects de Pet e Owner
+    function preencherSelects(){
+        fetch(petsUrl)
+            .then(res => res.json())
+            .then(pets => {
+                const selectPet = document.getElementById("adoptionPet");
+                selectPet.innerHTML = "<option value=''>Selecione</option>";
+                pets.forEach(p=> selectPet.innerHTML += `<option value="${p.id}">${p.name}</option>`);
+            });
+
+        fetch(ownersUrl)
+            .then(res => res.json())
+            .then(owners => {
+                const selectOwner = document.getElementById("adoptionOwner");
+                selectOwner.innerHTML = "<option value=''>Selecione</option>";
+                owners.forEach(o=> selectOwner.innerHTML += `<option value="${o.id}">${o.name}</option>`);
+            });
+    }
+
+    // Renderizar tabela de adoções
+    function renderTabela(filter=""){
+        fetch(apiUrl)
+            .then(res => res.json())
+            .then(adoptions => {
+                const tbody = document.getElementById("tabelaAdoptions");
+                tbody.innerHTML = "";
+                adoptions
+                    .filter(a =>
+                        a.petName.toLowerCase().includes(filter) ||
+                        a.ownerName.toLowerCase().includes(filter)
+                    )
+                    .forEach(a=>{
+                        const tr = document.createElement("tr");
+                        tr.innerHTML = `
+                            <td>${a.id}</td>
+                            <td>${a.petName}</td>
+                            <td>${a.ownerName}</td>
+                            <td>${a.adoptionDate || "-"}</td>
+                            <td>${a.returnDate || "-"}</td>
+                            <td>${a.status}</td>
+                            <td>
+                                <button onclick="editarAdoption(${a.id})">Editar</button>
+                                <button onclick="cancelarAdoption(${a.id})">Cancelar</button>
+                            </td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+            })
+            .catch(err => console.error("Erro ao carregar adoções:", err));
+    }
+
+    // Editar adoção
+    function editarAdoption(id){
+        fetch(`${apiUrl}/${id}`)
+            .then(res => res.json())
+            .then(a=>{
+                document.getElementById("adoptionId").value = a.id;
+                document.getElementById("adoptionPet").value = a.petId;
+                document.getElementById("adoptionOwner").value = a.ownerId;
+                document.getElementById("adoptionDate").value = a.adoptionDate || "";
+                document.getElementById("returnDate").value = a.returnDate || "";
+            })
+            .catch(err => console.error("Erro ao buscar adoção:", err));
+    }
+
+    // Cancelar adoção (PATCH -> status = CANCELED)
+    function cancelarAdoption(id){
+        fetch(`${apiUrl}/${id}/cancel`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" }
+        })
+        .then(res => {
+            if (!res.ok) throw new Error("Erro ao cancelar adoção");
+            return res.json();
+        })
+        .then(() => {
+            renderTabela(document.getElementById("pesquisaAdoption").value.toLowerCase());
+        })
+        .catch(err => console.error("Erro ao cancelar adoção:", err));
+    }
+
+    // Reset formulário
+    function resetForm(){
+        document.getElementById("formAdoption").reset();
+        document.getElementById("adoptionId").value = "";
+    }
+
+    // Submit (POST ou PUT)
+    document.getElementById("formAdoption").addEventListener("submit", function(e){
+        e.preventDefault();
+        const id = document.getElementById("adoptionId").value;
+        const adoptionData = {
+            petId: parseInt(document.getElementById("adoptionPet").value),
+            ownerId: parseInt(document.getElementById("adoptionOwner").value),
+            adoptionDate: document.getElementById("adoptionDate").value,
+            returnDate: document.getElementById("returnDate").value || null
+        };
+
+        const method = id ? "PUT" : "POST";
+        const url = id ? `${apiUrl}/${id}` : apiUrl;
+
+        fetch(url, {
+            method: method,
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(adoptionData)
+        })
+        .then(() => {
+            resetForm();
+            renderTabela(document.getElementById("pesquisaAdoption").value.toLowerCase());
+        })
+        .catch(err => console.error("Erro ao salvar adoção:", err));
+    });
+
+    // Pesquisa em tempo real
+    document.getElementById("pesquisaAdoption").addEventListener("input", function(){
+        renderTabela(this.value.toLowerCase());
+    });
+
+    // Inicialização
+    preencherSelects();
+    renderTabela();
+</script>
+
+</body>
+</html>

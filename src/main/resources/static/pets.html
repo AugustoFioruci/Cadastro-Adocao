@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pets - Sistema de Adoção</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="logo">
+            <h1>Pet Adoption System</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="pets.html" class="active">Pets</a></li>
+                <li><a href="owners.html">Owners</a></li>
+                <li><a href="adoptions.html">Adoptions</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- FORMULÁRIO DE CADASTRO / EDIÇÃO -->
+    <section id="cadastrar">
+        <h2>Cadastrar / Editar Pet</h2>
+        <form id="formPet">
+            <input type="hidden" id="petId">
+            <div>
+                <label for="petNome">Nome:</label>
+                <input type="text" id="petNome" required>
+            </div>
+            <div>
+                <label for="petAddress">Endereço encontrado:</label>
+                <input type="text" id="petAddress" required>
+            </div>
+            <div>
+                <label for="petBirthDate">Data de nascimento:</label>
+                <input type="date" id="petBirthDate">
+            </div>
+            <div>
+                <label for="petWeight">Peso (gramas):</label>
+                <input type="number" id="petWeight" min="0">
+            </div>
+            <div>
+                <label for="petRace">Raça:</label>
+                <input type="text" id="petRace">
+            </div>
+            <div>
+                <label for="petTipo">Tipo:</label>
+                <select id="petTipo" required>
+                    <option value="">Selecione</option>
+                    <option value="DOG">Cachorro</option>
+                    <option value="CAT">Gato</option>
+                    <!-- Adicione outros tipos do seu enum PetType -->
+                </select>
+            </div>
+            <div>
+                <label for="petSexo">Sexo:</label>
+                <select id="petSexo" required>
+                    <option value="">Selecione</option>
+                    <option value="MALE">Macho</option>
+                    <option value="FEMALE">Fêmea</option>
+                </select>
+            </div>
+            <button type="submit" class="btn">Salvar</button>
+            <button type="button" class="btn" onclick="resetForm()">Cancelar</button>
+        </form>
+    </section>
+
+    <!-- LISTAGEM COM PESQUISA -->
+    <section id="listar">
+        <h2>Lista de Pets</h2>
+        <div style="margin-bottom: 20px;">
+            <label for="pesquisaPet"><strong>Pesquisar Pet:</strong></label>
+            <input type="text" id="pesquisaPet" placeholder="Digite nome, tipo ou raça...">
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Endereço</th>
+                    <th>Data Nasc.</th>
+                    <th>Peso (g)</th>
+                    <th>Raça</th>
+                    <th>Tipo</th>
+                    <th>Sexo</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="tabelaPets">
+                <!-- JS vai preencher -->
+            </tbody>
+        </table>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Pet Adoption System | Desenvolvido por Augusto Fioruci</p>
+    </footer>
+
+    <!-- JS -->
+    <script>
+const apiUrl = "/api/pets"; // URL base do seu backend
+
+// Renderizar tabela
+function renderTabela(filter = "") {
+    fetch(apiUrl)
+        .then(res => res.json())
+        .then(pets => {
+            const tbody = document.getElementById("tabelaPets");
+            tbody.innerHTML = "";
+            pets
+                .filter(p => 
+                    p.name.toLowerCase().includes(filter) ||
+                    p.typePet.toLowerCase().includes(filter) ||
+                    (p.race && p.race.toLowerCase().includes(filter))
+                )
+                .forEach(pet => {
+                    const tr = document.createElement("tr");
+                    tr.innerHTML = `
+                        <td>${pet.id}</td>
+                        <td>${pet.name}</td>
+                        <td>${pet.addressPetFound}</td>
+                        <td>${pet.birthDate || "-"}</td>
+                        <td>${pet.weightInGrams || "-"}</td>
+                        <td>${pet.race || "-"}</td>
+                        <td>${pet.typePet}</td>
+                        <td>${pet.sexPet}</td>
+                        <td>
+                            <button onclick="editarPet(${pet.id})">Editar</button>
+                            <button onclick="deletarPet(${pet.id})">Deletar</button>
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+        })
+        .catch(err => console.error("Erro ao carregar pets:", err));
+}
+
+// Editar pet (busca dados do backend)
+function editarPet(id) {
+    fetch(`${apiUrl}/${id}`)
+        .then(res => res.json())
+        .then(pet => {
+            document.getElementById("petId").value = pet.id;
+            document.getElementById("petNome").value = pet.name;
+            document.getElementById("petAddress").value = pet.addressPetFound;
+            document.getElementById("petBirthDate").value = pet.birthDate || "";
+            document.getElementById("petWeight").value = pet.weightInGrams || "";
+            document.getElementById("petRace").value = pet.race || "";
+            document.getElementById("petTipo").value = pet.typePet;
+            document.getElementById("petSexo").value = pet.sexPet;
+        })
+        .catch(err => console.error("Erro ao buscar pet:", err));
+}
+
+// Deletar pet
+function deletarPet(id) {
+    fetch(`${apiUrl}/${id}`, { method: "DELETE" })
+        .then(() => renderTabela(document.getElementById("pesquisaPet").value.toLowerCase()))
+        .catch(err => console.error("Erro ao deletar pet:", err));
+}
+
+// Reset do formulário
+function resetForm() {
+    document.getElementById("formPet").reset();
+    document.getElementById("petId").value = "";
+}
+
+// Submit do formulário (POST ou PUT)
+document.getElementById("formPet").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const id = document.getElementById("petId").value;
+    const petData = {
+        name: document.getElementById("petNome").value,
+        addressPetFound: document.getElementById("petAddress").value,
+        birthDate: document.getElementById("petBirthDate").value || null,
+        weightInGrams: parseInt(document.getElementById("petWeight").value) || null,
+        race: document.getElementById("petRace").value || null,
+        typePet: document.getElementById("petTipo").value,
+        sexPet: document.getElementById("petSexo").value
+    };
+
+    const method = id ? "PUT" : "POST";
+    const url = id ? `${apiUrl}/${id}` : apiUrl;
+
+    fetch(url, {
+        method: method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(petData)
+    })
+    .then(() => {
+        resetForm();
+        renderTabela(document.getElementById("pesquisaPet").value.toLowerCase());
+    })
+    .catch(err => console.error("Erro ao salvar pet:", err));
+});
+
+// Pesquisa em tempo real
+document.getElementById("pesquisaPet").addEventListener("input", function() {
+    renderTabela(this.value.toLowerCase());
+});
+
+// Inicializa tabela
+renderTabela();
+</script>
+
+</body>
+</html>

@@ -17,7 +17,7 @@ public class PetDTO {
 
     private Long id;
     private String name;
-    private String address;
+    private String addressPetFound;
     private LocalDate birthDate;
     private int weightInGrams;
     private String race;
@@ -28,7 +28,7 @@ public class PetDTO {
         return PetDTO.builder()
                 .id(pet.getId())
                 .name(pet.getName())
-                .address(pet.getAddressPetFound())
+                .addressPetFound(pet.getAddressPetFound())
                 .birthDate(pet.getBirthDate())
                 .weightInGrams(pet.getWeightInGrams())
                 .race(pet.getRace())

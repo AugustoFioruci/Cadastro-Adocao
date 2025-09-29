@@ -8,6 +8,7 @@ import com.adocaopets.cadastro.repository.PetRepository;
 import com.adocaopets.cadastro.request.PetRequest;
 import com.adocaopets.cadastro.service.PetService;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.boot.model.source.internal.hbm.PluralAttributeElementSourceOneToManyImpl;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -76,6 +77,14 @@ public class PetServiceImpl implements PetService {
                 .stream()
                 .map(PetDTO::fromEntity)
                 .toList();
+    }
+
+    @Override
+    public PetDTO listById(Long id){
+
+        return petRepository.findById(id)
+                .map(PetDTO::fromEntity)
+                .orElseThrow(() -> new RuntimeException("Pet nao encontrado"));
     }
 
     @Override

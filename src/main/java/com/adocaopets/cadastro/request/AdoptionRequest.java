@@ -18,8 +18,8 @@ public class AdoptionRequest {
     private Long ownerId;
     @NotNull
     private Long petId;
-    @NotNull
-    private LocalDate returnDate;
-    @NotBlank
+    private LocalDate adoptionDate;
     private AdoptionStatus status;
+
+    private LocalDate returnDate;
 }

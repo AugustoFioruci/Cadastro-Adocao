@@ -41,7 +41,7 @@ public class AdoptionServiceImpl implements AdoptionService {
         Adoption adoption = Adoption.builder()
                 .owner(owner)
                 .pet(pet)
-                .adoptionTime(LocalDate.now())
+                .adoptionDate(LocalDate.now())
                 .adoptionStatus(AdoptionStatus.ADOPTED)
                 .build();
 
@@ -59,9 +59,8 @@ public class AdoptionServiceImpl implements AdoptionService {
 
         adoption.setOwner(owner);
         adoption.setPet(pet);
-        adoption.setAdoptionStatus(request.getStatus());
-        if(request.getReturnDate() != null){
-            adoption.setReturnDate(request.getReturnDate());
+        if(request.getAdoptionDate() != null){
+            adoption.setReturnDate(request.getAdoptionDate());
         }
         Adoption updateAdoption = adoptionRepository.save(adoption);
 
@@ -78,6 +77,13 @@ public class AdoptionServiceImpl implements AdoptionService {
         Adoption cancelAdoption = adoptionRepository.save(adoption);
 
         return AdoptionDTO.fromEntity(cancelAdoption);
+    }
+
+    @Override
+    public AdoptionDTO listById(Long Id){
+        return adoptionRepository.findById(Id)
+                .map(AdoptionDTO::fromEntity)
+                .orElseThrow(() -> new RuntimeException("Adocao nao encontrada"));
     }
 
     @Override

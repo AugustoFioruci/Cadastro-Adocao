@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/pets")
+@RequestMapping("/api/pets")
 public class PetController {
 
     private final PetService petService;
@@ -43,6 +43,11 @@ public class PetController {
     @GetMapping
     public ResponseEntity<List<PetDTO>> listAll(){
         return ResponseEntity.ok(petService.listAll());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PetDTO> listById(@PathVariable Long id){
+        return ResponseEntity.ok(petService.listById(id));
     }
 
     @GetMapping("/name")

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Owners - Sistema de Adoção</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <div class="logo">
+        <h1>Pet Adoption System</h1>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="pets.html">Pets</a></li>
+            <li><a href="owners.html" class="active">Owners</a></li>
+            <li><a href="adoptions.html">Adoptions</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section id="cadastrar">
+    <h2>Cadastrar / Editar Owner</h2>
+    <form id="formOwner">
+        <input type="hidden" id="ownerId">
+        <div>
+            <label for="ownerName">Nome:</label>
+            <input type="text" id="ownerName" required>
+        </div>
+        <div>
+            <label for="ownerCPF">CPF:</label>
+            <input type="text" id="ownerCPF" required maxlength="11" placeholder="Somente números">
+        </div>
+        <div>
+            <label for="ownerTelephone">Telefone:</label>
+            <input type="text" id="ownerTelephone">
+        </div>
+        <h3>Endereço</h3>
+        <div>
+            <label for="addressStreet">Rua:</label>
+            <input type="text" id="addressStreet" required>
+        </div>
+        <div>
+            <label for="addressNumber">Número:</label>
+            <input type="number" id="addressNumber" required>
+        </div>
+        <div>
+            <label for="addressCity">Cidade:</label>
+            <input type="text" id="addressCity" required>
+        </div>
+        <div>
+            <label for="addressNeighborhood">Bairro:</label>
+            <input type="text" id="addressNeighborhood">
+        </div>
+        <button type="submit" class="btn">Salvar</button>
+        <button type="button" class="btn" onclick="resetForm()">Cancelar</button>
+    </form>
+</section>
+
+<section id="listar">
+    <h2>Lista de Owners</h2>
+    <div style="margin-bottom: 20px;">
+        <label for="pesquisaOwner"><strong>Pesquisar Owner:</strong></label>
+        <input type="text" id="pesquisaOwner" placeholder="Digite nome ou CPF...">
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Telefone</th>
+                <th>Rua</th>
+                <th>Número</th>
+                <th>Cidade</th>
+                <th>Bairro</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody id="tabelaOwners"></tbody>
+    </table>
+</section>
+
+<footer>
+    <p>&copy; 2025 Pet Adoption System | Desenvolvido por Augusto Fioruci</p>
+</footer>
+
+<script>
+const apiUrl = "/api/owners"; // URL base do backend
+
+// Renderizar tabela
+function renderTabela(filter = "") {
+    fetch(apiUrl)
+        .then(res => res.json())
+        .then(owners => {
+            const tbody = document.getElementById("tabelaOwners");
+            tbody.innerHTML = "";
+            owners
+                .filter(o => 
+                    o.name.toLowerCase().includes(filter) ||
+                    o.cpf.includes(filter)
+                )
+                .forEach(owner => {
+                    const tr = document.createElement("tr");
+                    tr.innerHTML = `
+                        <td>${owner.id}</td>
+                        <td>${owner.name}</td>
+                        <td>${owner.cpf}</td>
+                        <td>${owner.telephoneNumber || "-"}</td>
+                        <td>${owner.address.street}</td>
+                        <td>${owner.address.number}</td>
+                        <td>${owner.address.city}</td>
+                        <td>${owner.address.neighborhood || "-"}</td>
+                        <td>
+                            <button onclick="editarOwner(${owner.id})">Editar</button>
+                            <button onclick="deletarOwner(${owner.id})">Deletar</button>
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+        })
+        .catch(err => console.error("Erro ao carregar owners:", err));
+}
+
+// Editar owner
+function editarOwner(id) {
+    fetch(`${apiUrl}/${id}`)
+        .then(res => res.json())
+        .then(owner => {
+            document.getElementById("ownerId").value = owner.id;
+            document.getElementById("ownerName").value = owner.name;
+            document.getElementById("ownerCPF").value = owner.cpf;
+            document.getElementById("ownerTelephone").value = owner.telephoneNumber || "";
+            document.getElementById("addressStreet").value = owner.address.street;
+            document.getElementById("addressNumber").value = owner.address.number;
+            document.getElementById("addressCity").value = owner.address.city;
+            document.getElementById("addressNeighborhood").value = owner.address.neighborhood || "";
+        })
+        .catch(err => console.error("Erro ao buscar owner:", err));
+}
+
+// Deletar owner
+function deletarOwner(id) {
+    fetch(`${apiUrl}/${id}`, { method: "DELETE" })
+        .then(() => renderTabela(document.getElementById("pesquisaOwner").value.toLowerCase()))
+        .catch(err => console.error("Erro ao deletar owner:", err));
+}
+
+// Reset do formulário
+function resetForm() {
+    document.getElementById("formOwner").reset();
+    document.getElementById("ownerId").value = "";
+}
+
+// Submit do formulário (POST ou PUT)
+document.getElementById("formOwner").addEventListener("submit", function(e){
+    e.preventDefault();
+    const id = document.getElementById("ownerId").value;
+    const ownerData = {
+        name: document.getElementById("ownerName").value,
+        cpf: document.getElementById("ownerCPF").value.replace(/\D/g,''),
+        telephoneNumber: document.getElementById("ownerTelephone").value,
+        address: {
+            street: document.getElementById("addressStreet").value,
+            number: parseInt(document.getElementById("addressNumber").value),
+            city: document.getElementById("addressCity").value,
+            neighborhood: document.getElementById("addressNeighborhood").value
+        }
+    };
+
+    const method = id ? "PUT" : "POST";
+    const url = id ? `${apiUrl}/${id}` : apiUrl;
+
+    fetch(url, {
+        method: method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(ownerData)
+    })
+    .then(() => {
+        resetForm();
+        renderTabela(document.getElementById("pesquisaOwner").value.toLowerCase());
+    })
+    .catch(err => console.error("Erro ao salvar owner:", err));
+});
+
+// Pesquisa em tempo real
+document.getElementById("pesquisaOwner").addEventListener("input", function() {
+    renderTabela(this.value.toLowerCase());
+});
+
+// Inicializa tabela
+renderTabela();
+</script>
+
+</body>
+</html>

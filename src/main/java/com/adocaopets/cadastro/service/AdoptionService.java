@@ -11,6 +11,7 @@ public interface AdoptionService {
     AdoptionDTO createAdoption(AdoptionRequest request);
     AdoptionDTO updateAdoption(AdoptionRequest request, Long id);
     AdoptionDTO cancelAdoption(Long id);
+    AdoptionDTO listById(Long id);
     List<AdoptionDTO> listAdoptionByPetIdAndOwnerCpf(Long id, String cpf);
     List<AdoptionDTO> listAll();
     List<AdoptionDTO> listByOwnerCpf(String cpf);

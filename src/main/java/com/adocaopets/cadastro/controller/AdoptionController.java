@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/adoptions")
+@RequestMapping("/api/adoptions")
 public class AdoptionController {
 
     private final AdoptionService adoptionService;
@@ -34,6 +34,11 @@ public class AdoptionController {
     public ResponseEntity<AdoptionDTO> cancelAdoption(@PathVariable Long id){
         AdoptionDTO adoption = adoptionService.cancelAdoption(id);
         return ResponseEntity.ok(adoption);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<AdoptionDTO> listById(@PathVariable Long id){
+        return ResponseEntity.ok(adoptionService.listById(id));
     }
 
     @GetMapping

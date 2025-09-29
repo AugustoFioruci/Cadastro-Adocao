@@ -9,6 +9,7 @@ public interface OwnerService {
     OwnerDTO createOwner(OwnerRequest request);
     OwnerDTO updateOwner(Long id, OwnerRequest request);
     void deleteOwner(Long id);
+    OwnerDTO listById(Long id);
     List<OwnerDTO> listAll();
     List<OwnerDTO> listByName(String name);
     List<OwnerDTO> listByNameContainingIgnoreCase(String name);

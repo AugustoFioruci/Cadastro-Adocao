@@ -1,6 +1,7 @@
 package com.adocaopets.cadastro.controller;
 
 import com.adocaopets.cadastro.dto.OwnerDTO;
+import com.adocaopets.cadastro.model.entity.Owner;
 import com.adocaopets.cadastro.request.OwnerRequest;
 import com.adocaopets.cadastro.service.OwnerService;
 import jakarta.validation.Valid;
@@ -13,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/owners")
+@RequestMapping("/api/owners")
 public class OwnerController {
 
     private final OwnerService ownerService;
@@ -35,6 +36,11 @@ public class OwnerController {
     public ResponseEntity<Void> deleteOwner(@PathVariable Long id){
         ownerService.deleteOwner(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<OwnerDTO> listById(@PathVariable Long id){
+        return ResponseEntity.ok(ownerService.listById(id));
     }
 
     @GetMapping

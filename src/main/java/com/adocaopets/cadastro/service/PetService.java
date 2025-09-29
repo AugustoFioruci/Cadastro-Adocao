@@ -16,6 +16,7 @@ public interface PetService {
     PetDTO updatePet(Long id, PetRequest request);
     void deletePet(Long id);
     List<PetDTO> listAll();
+    PetDTO listById(Long id);
     List<PetDTO> listByName(String name);
     List<PetDTO> listByNameContainingIgnoreCase(String name);
     List<PetDTO> listBySex(PetSex sex);

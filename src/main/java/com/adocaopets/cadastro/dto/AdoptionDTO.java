@@ -29,7 +29,7 @@ public class AdoptionDTO {
                 .ownerId(adoption.getOwner().getId())
                 .petName(adoption.getPet().getName())
                 .ownerName(adoption.getOwner().getName())
-                .adoptionDate(adoption.getReturnDate())
+                .adoptionDate(adoption.getAdoptionDate())
                 .returnDate(adoption.getReturnDate())
                 .status(adoption.getAdoptionStatus())
                 .build();

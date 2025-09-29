@@ -65,6 +65,13 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
+    public OwnerDTO listById(Long id){
+        return ownerRepository.findById(id)
+                .map(OwnerDTO::fromEntity)
+                .orElseThrow(() -> new RuntimeException("Dono não encontrado"));
+    }
+
+    @Override
     public List<OwnerDTO> listAll(){
 
 
