@@ -31,12 +31,21 @@ cd adocao-pets/backend
 
 ---
 
-### Configure o banco no arquivo application.properties
-
----
+### 2. Configure o banco no arquivo application.properties
 
 spring.datasource.url=jdbc:postgresql://localhost:5432/adocaopets
 spring.datasource.username=seu_usuario
 spring.datasource.password=sua_senha
 spring.jpa.hibernate.ddl-auto=update
+
+---
+
+### 3. Rode o projeto
+
+mvn spring-boot:run
+
+### 4. A API estará disponível em:
+
+http://localhost:8080
+
 
