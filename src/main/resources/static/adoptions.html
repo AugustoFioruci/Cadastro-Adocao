@@ -36,6 +36,16 @@
             <select id="adoptionOwner" required></select>
         </div>
 
+
+        <div>
+            <input type="hidden" id="adoptionDate" >
+        </div>
+
+        <div>
+            <input type="hidden" id="returnDate">
+        </div>
+
+
         <button type="submit" class="btn">Salvar</button>
         <button type="button" class="btn" onclick="resetForm()">Cancelar</button>
     </form>
@@ -166,7 +176,6 @@
         const adoptionData = {
             petId: parseInt(document.getElementById("adoptionPet").value),
             ownerId: parseInt(document.getElementById("adoptionOwner").value),
-            adoptionDate: document.getElementById("adoptionDate").value,
             returnDate: document.getElementById("returnDate").value || null
         };
 

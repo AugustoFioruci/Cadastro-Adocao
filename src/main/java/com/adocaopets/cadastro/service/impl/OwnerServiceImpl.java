@@ -46,7 +46,7 @@ public class OwnerServiceImpl implements OwnerService {
         owner.setCpf(request.getCpf());
         owner.setTelephoneNumber(request.getTelephoneNumber());
         owner.getAddress().setCity(request.getAddress().getCity());
-        owner.getAddress().setNeighborhood(request.getAddress().getCity());
+        owner.getAddress().setNeighborhood(request.getAddress().getNeighborhood());
         owner.getAddress().setStreet(request.getAddress().getStreet());
         owner.getAddress().setNumber(request.getAddress().getNumber());
 
