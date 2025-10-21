@@ -5,7 +5,7 @@ Um sistema completo para gerenciar **adoção de animais**, desenvolvido em **Ja
 ---
 
 ## 🚀 Tecnologias Utilizadas
-- **Backend:** Java 17, Spring Boot (Web, Data JPA, Validation), Hibernate, PostgreSQL, Lombok  
+- **Backend:** Java 21, Spring Boot (Web, Data JPA, Validation), Hibernate, PostgreSQL, Lombok  
 - **Frontend:** HTML5, CSS3, JavaScript (Fetch API)  
 - **Outros:** Maven, Flyway (versionamento de banco, se necessário), Docker (opcional)  
 
@@ -42,7 +42,7 @@ spring.jpa.hibernate.ddl-auto=update
 
 ### 3. Rode o projeto
 
-mvn spring-boot:run
+./mvnw spring-boot:run
 
 ### 4. A API estará disponível em:
 
